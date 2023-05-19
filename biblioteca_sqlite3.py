@@ -111,6 +111,7 @@ def AñadirLibroBiblioteca(biblioteca):
         # Creo dos objetos
         autor = Autor(autornombre, autorapellidos)
         libro = Libro(titulo, isbn)
+        # Almaceno los el nombre y los apellidos en 'self.Autor' del método AñadirAutor()
         libro.AñadirAutor(autor)
         biblioteca.AñadirLibros(libro)
         return biblioteca
