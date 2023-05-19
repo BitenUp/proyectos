@@ -149,4 +149,4 @@ while not fin:
     elif opcion == 5:
         fin = True
 
-print('¡Hasta Luego!')
+print('¡¡Hasta Luego!!')
