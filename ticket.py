@@ -4,16 +4,24 @@ def entra_productos():
     entrada = False
 
     while not entrada:
-        añadir = input("Para añadir un producto 'A' y para salir 'S': ")
-        if añadir.lower() == "a":
+        opcion = input("Para opcion un producto 'A' y para salir 'S': ")
+        if opcion.lower() == "a":
             producto = input("Introduce el nombre del producto: ")
-            cantidad = int(input("Introduce la cantidad: "))
-            # Convertimos la cadena para la key de datosProducto
-            producto = producto.title()
-            # Actualizamos el diccionario con sus nuevos elementos
-            datosCompra.update({producto: cantidad})
+            cantidad = input("Introduce la cantidad: ")
+            # Excepción para el valor numérico
+            try:
+                cantidad = int(cantidad)
+                # Convertimos la cadena para la key de datosProducto
+                producto = producto.title()
+                # Actualizamos el diccionario con sus nuevos elementos
+                datosCompra.update({producto: cantidad})
+            except ValueError:
+                print("La cantidad introducida debe ser numérica")
 
-        elif añadir.lower() == "s":
+        elif opcion.lower() == "s":
+            if not datosCompra:
+                print("No se han ingresado productos.")
+                return
             entrada = True
 
         else:
@@ -47,6 +55,8 @@ def obtener_descuento(factura, membresia):
     # Dos variables para iniciar el valor del descuento y total devuelto.
     descuento = 0
     totalfactura = 0
+    if membresia.lower() == "s":
+        return factura
 
     if factura >= 25:
         if membresia.title() == "Gold":
@@ -89,14 +99,18 @@ def factura_productos(datosCompra, membresia):
         elif membresia.lower() == "bronze":
             membresia_valida = True
 
+        elif membresia.lower() == "s":
+            membresia_valida = True
+
         else:
             print(f"'{membresia}' no es una membresía válida")
-            membresia = input("Cuál es tu membresía: ")
+            membresia = input("Introduce tu membresía o 'S' para salir: ")
 
     # Recorremos los elementos del diccionario
     for producto, unidad in datosCompra.items():
         # almaceno el total en la variable 'factura'
         factura += obtener_precio(producto, unidad)
+
     # total con el descuento aplicado
     total = obtener_descuento(factura, membresia)
     print(f"El total es de {str(round(total, 2))}€")
