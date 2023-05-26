@@ -108,7 +108,7 @@ def factura_productos(datosCompra, membresia):
 
     # Recorremos los elementos del diccionario
     for producto, unidad in datosCompra.items():
-        # almaceno el total en la variable 'factura'
+        # total en la variable 'factura'
         factura += obtener_precio(producto, unidad)
 
     # total con el descuento aplicado
